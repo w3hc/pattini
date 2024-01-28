@@ -6,19 +6,23 @@ branding:
   icon: 'arrow-right-circle'
   color: 'blue'
 
-inputs:
-  issue_number:
-    description: 'The issue number to reward'
-    required: true
-  private_key:
-    description: 'The private key to use to authenticate with GitHub'
-    required: true
+jobs:
+  get input:
+    runs-on: ubuntu-latest
 
-runs:
-  using: node20
-  main:  |
-    echo ${{ inputs.issue_number }}
-    echo ${{ inputs.private_key }} 
-    echo ${{ github.event }}
+    inputs:
+      issue_number:
+        description: 'The issue number to reward'
+        required: true
+      private_key:
+        description: 'The private key to use to authenticate with GitHub'
+        required: true
 
-  
+    runs:
+      using: node20
+      main:  |
+        echo ${{ inputs.issue_number }}
+        echo ${{ inputs.private_key }} 
+        echo ${{ github.event }}
+
+      
