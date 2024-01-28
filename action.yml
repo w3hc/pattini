@@ -12,7 +12,7 @@ jobs:
 
     inputs:
       issue_number:
-        description: 'The issue number to reward'
+        description: 'The issue number to reward.'
         required: true
       private_key:
         description: 'The private key to use to authenticate with GitHub'
