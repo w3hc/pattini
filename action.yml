@@ -6,25 +6,18 @@ branding:
   icon: 'arrow-right-circle'
   color: 'blue'
 
-on:
-  workflow_call:
-    inputs:
-      issue_number:
-        description: 'The issue number to reward.'
-        required: true
-      private_key:
-        description: 'The private key to use to authenticate with GitHub'
-        required: true
+inputs:
+  ISSUE_NUMBER:
+    description: 'The issue number to reward.'
+    required: true
+  PRIVATE_KEY:
+    description: 'The private key to use to authenticate with GitHub'
+    required: true
 
-jobs:
-  get input:
-    runs-on: ubuntu-latest
 
-    runs:
-      using: node20
-      main:  |
-        echo ${{ inputs }}
-        echo ${{ inputs.issue_number }}
-        echo ${{ github.event }}
-
+runs:
+  using: node20
+  main:  |
+  echo "Issue Number: ${{ inputs.ISSUE_NUMBER }}"    
+  echo "GitHub Event: ${{ toJson(github.event) }}"
       
