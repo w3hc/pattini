@@ -6,7 +6,7 @@
 [![CodeQL](https://github.com/actions/pattini/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/actions/pattini/actions/workflows/codeql-analysis.yml)
 [![Coverage](./badges/coverage.svg)](./badges/coverage.svg)
 
-Github Action to reward contributors of a given Github repository.
+GitHub Action to reward contributors of a given GitHub repository.
 
 ## Install
 
