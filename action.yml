@@ -19,6 +19,6 @@ runs:
   main: |
   echo ${{ github.event.inputs.issue_number }}
   echo ${{ github.event.inputs.private_key }}
-  dist/index.js ${{ github.event.inputs.issue_number }} ${{ github.event.inputs.private_key }}
+  dist/index.js 
 
   

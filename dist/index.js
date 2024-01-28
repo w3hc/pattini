@@ -36855,8 +36855,8 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
  * The entrypoint for the action.
  */
 const main_1 = __nccwpck_require__(399);
-const issue_number = process.env.issue_number || '';
-const private_key = process.env.private_key || '';
+const issue_number = process.env.INPUT_ISSUE_NUMBER;
+const private_key = process.env.INPUT_PRIVATE_KEY;
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
 (0, main_1.run)(issue_number, private_key);
 
