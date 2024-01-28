@@ -21,8 +21,7 @@ jobs:
     runs:
       using: node20
       main:  |
-        echo ${{ inputs.issue_number }}
-        echo ${{ inputs.private_key }} 
+        echo ${{ inputs }}
         echo ${{ github.event }}
 
       
