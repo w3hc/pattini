@@ -1,9 +1,9 @@
-name: 'Pattini'
+name: 'Pattini app'
 description: 'Rewards an external contributor'
 author: 'W3HC'
 
 branding:
-  icon: 'rainbow'
+  icon: 'arrow-right-circle'
   color: 'blue'
 
 inputs:
