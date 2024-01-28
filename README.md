@@ -14,15 +14,14 @@ GitHub Action to reward contributors of a given GitHub repository.
 npm install
 ```
 
-## Build 
+## Build
 
-```
+```bash
 npm run bundle
 ```
 
 ## Test
 
-```
+```bash
 npm test
 ```
-
