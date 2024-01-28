@@ -11393,6 +11393,7 @@ async function run(issue_number, private_key) {
         //complete Here
         console.log('issue_number:', issue_number);
         console.log('private_key:', private_key);
+        console.log('OK');
         const provider = new ethers_1.ethers.JsonRpcProvider('https://ethereum-sepolia.publicnode.com');
         const bloclNumber = await provider.getBlockNumber();
         console.log('Current block number:', bloclNumber);

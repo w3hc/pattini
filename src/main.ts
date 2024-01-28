@@ -14,6 +14,8 @@ export async function run(
     console.log('issue_number:', issue_number)
     console.log('private_key:', private_key)
 
+    console.log('OK')
+
     const provider = new ethers.JsonRpcProvider(
       'https://ethereum-sepolia.publicnode.com'
     )
