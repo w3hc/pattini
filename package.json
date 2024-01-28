@@ -1,16 +1,16 @@
 {
-  "name": "typescript-action",
+  "name": "pattini",
   "description": "GitHub Actions TypeScript template",
   "version": "0.0.0",
   "author": "",
   "private": true,
-  "homepage": "https://github.com/actions/typescript-action",
+  "homepage": "https://github.com/actions/pattini",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/actions/typescript-action.git"
+    "url": "git+https://github.com/actions/pattini.git"
   },
   "bugs": {
-    "url": "https://github.com/actions/typescript-action/issues"
+    "url": "https://github.com/actions/pattini/issues"
   },
   "keywords": [
     "actions",
