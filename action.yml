@@ -16,8 +16,8 @@ inputs:
 
 
 runs:
-  using: node20
-  main:  |
-  echo "Running the action..."
-  echo '{{inputs.PRIVATE_KEY}}'
+  steps:
+    - name: Pattini app
+      run: |
+        echo "All Inputs: ${{ toJson(inputs) }}"
       
