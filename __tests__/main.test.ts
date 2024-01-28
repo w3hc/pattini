@@ -10,19 +10,16 @@ describe('action', () => {
     jest.clearAllMocks()
     errorMock = jest.spyOn(core, 'error').mockImplementation()
   })
+  // a refaire en ajoutant "getInputMock = jest.spyOn(core, 'getInput').mockImplementation()""
 
   it('sets the time output', async () => {
-    const issue_number = '123'
-    const private_key = '0x***'
-    await main.run(issue_number, private_key)
+    await main.run()
     expect(runMock).toHaveReturned()
     expect(errorMock).not.toHaveBeenCalled()
   })
 
   it('sets a failed status', async () => {
-    const issue_number = '123'
-    const private_key = '0x***'
-    await main.run(issue_number, private_key)
+    await main.run()
     expect(runMock).toHaveReturned()
   })
 })

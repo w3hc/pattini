@@ -5,16 +5,14 @@ import { ethers } from 'ethers'
  * The main function for the action.
  * @returns {Promise<void>} Resolves when the action is complete.
  */
-export async function run(
-  issue_number: string,
-  private_key: string
-): Promise<void> {
+export async function run(): Promise<void> {
   try {
+    const issue_number: string = core.getInput('ISSUE_NUMBER')
+    const private_key: string = core.getInput('PRIVATE_KEY')
+
     //complete Here
     console.log('issue_number:', issue_number)
     console.log('private_key:', private_key)
-
-    console.log('OK')
 
     const provider = new ethers.JsonRpcProvider(
       'https://ethereum-sepolia.publicnode.com'

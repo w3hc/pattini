@@ -55,7 +55,6 @@ jobs:
         id: test-action
         uses: ./
         with:
-          milliseconds: 2000
           ISSUE_NUMBER: 1
           PRIVATE_KEY: 0x1234567890abcdef1234567890abcdef12345678
 
