@@ -58,6 +58,6 @@ jobs:
           ISSUE_NUMBER: 1
           PRIVATE_KEY: 0x1234567890abcdef1234567890abcdef12345678
 
-      - name: Print Output
-        id: output
-        run: echo "${{ steps.test-action.outputs.time }}"
+#      - name: Print Output
+#        id: output
+#        run: echo "${{ steps.test-action.outputs.time }}"
