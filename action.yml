@@ -17,7 +17,7 @@ inputs:
 
 runs:
   using: "node20"
-  setps:
+  steps:
     - name: 'Pattini app'
       run: |
         echo "All Inputs: ${{ toJson(inputs) }}"
