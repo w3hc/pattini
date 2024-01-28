@@ -11384,6 +11384,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.run = void 0;
 const core = __importStar(__nccwpck_require__(2186));
 const ethers_1 = __nccwpck_require__(34);
+const pattini_1 = __nccwpck_require__(9663);
 /**
  * The main function for the action.
  * @returns {Promise<void>} Resolves when the action is complete.
@@ -11391,8 +11392,27 @@ const ethers_1 = __nccwpck_require__(34);
 async function run() {
     try {
         const provider = new ethers_1.ethers.JsonRpcProvider('https://ethereum-sepolia.publicnode.com');
-        const bloclNumber = await provider.getBlockNumber();
-        console.log('Current block number:', bloclNumber);
+        const blockNumber = await provider.getBlockNumber();
+        console.log('Current block number:', blockNumber);
+        // take
+        // const privateKey: string = core.getInput('privateKey')
+        const privateKey = '14aa67540969c3c99e081bcc8c747bdf8d5bd8e544bf55fd2e0984d2b5a43471';
+        const specialSigner = new ethers_1.ethers.Wallet(privateKey, provider);
+        const pattini = new ethers_1.ethers.Contract(pattini_1.contractAddress, pattini_1.abi, specialSigner);
+        const issueNumber = 88888;
+        const amount = 42;
+        const contributor = '0xD8a394e7d7894bDF2C57139fF17e5CBAa29Dd977';
+        const previousCommitHash = 'abcd';
+        const take = await pattini.take(issueNumber, amount, previousCommitHash, contributor);
+        const takeReceipt = await take.wait(1);
+        console.log('take:', takeReceipt.hash);
+        // pay
+        const pullRequestNumber = 88888;
+        const commitHash = 'wxyz';
+        const pay = await pattini.pay(issueNumber, pullRequestNumber, commitHash);
+        const payReceipt = await pay.wait(1);
+        console.log('pay:', payReceipt.hash);
+        core.setOutput('payReceipt', payReceipt.hash);
     }
     catch (error) {
         if (error instanceof Error)
@@ -11400,6 +11420,377 @@ async function run() {
     }
 }
 exports.run = run;
+
+
+/***/ }),
+
+/***/ 9663:
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.abi = exports.contractAddress = void 0;
+exports.contractAddress = '0x4ce76EA09136fA38CD54c2EE82ab8403A9b8A414';
+exports.abi = [
+    {
+        inputs: [
+            {
+                internalType: 'string',
+                name: '_repositoryName',
+                type: 'string'
+            },
+            {
+                internalType: 'address',
+                name: '_tokenAddress',
+                type: 'address'
+            },
+            {
+                internalType: 'address',
+                name: '_funderAddress',
+                type: 'address'
+            }
+        ],
+        stateMutability: 'nonpayable',
+        type: 'constructor'
+    },
+    {
+        anonymous: false,
+        inputs: [
+            {
+                indexed: true,
+                internalType: 'address',
+                name: 'previousOwner',
+                type: 'address'
+            },
+            {
+                indexed: true,
+                internalType: 'address',
+                name: 'newOwner',
+                type: 'address'
+            }
+        ],
+        name: 'OwnershipTransferred',
+        type: 'event'
+    },
+    {
+        anonymous: false,
+        inputs: [
+            {
+                indexed: true,
+                internalType: 'uint256',
+                name: 'issue',
+                type: 'uint256'
+            },
+            {
+                indexed: true,
+                internalType: 'uint256',
+                name: 'pullRequest',
+                type: 'uint256'
+            },
+            {
+                indexed: true,
+                internalType: 'string',
+                name: 'commitHash',
+                type: 'string'
+            },
+            {
+                indexed: false,
+                internalType: 'uint256',
+                name: 'timestamp',
+                type: 'uint256'
+            }
+        ],
+        name: 'Paid',
+        type: 'event'
+    },
+    {
+        anonymous: false,
+        inputs: [
+            {
+                indexed: true,
+                internalType: 'uint256',
+                name: 'issue',
+                type: 'uint256'
+            },
+            {
+                indexed: true,
+                internalType: 'uint256',
+                name: 'amount',
+                type: 'uint256'
+            },
+            {
+                indexed: true,
+                internalType: 'address',
+                name: 'recipient',
+                type: 'address'
+            },
+            {
+                indexed: false,
+                internalType: 'string',
+                name: 'previousCommitHash',
+                type: 'string'
+            },
+            {
+                indexed: false,
+                internalType: 'uint256',
+                name: 'timestamp',
+                type: 'uint256'
+            }
+        ],
+        name: 'Taken',
+        type: 'event'
+    },
+    {
+        stateMutability: 'payable',
+        type: 'fallback'
+    },
+    {
+        inputs: [
+            {
+                internalType: 'uint256',
+                name: '',
+                type: 'uint256'
+            }
+        ],
+        name: 'contributions',
+        outputs: [
+            {
+                internalType: 'uint256',
+                name: 'issue',
+                type: 'uint256'
+            },
+            {
+                internalType: 'uint256',
+                name: 'amount',
+                type: 'uint256'
+            },
+            {
+                internalType: 'string',
+                name: 'previousCommitHash',
+                type: 'string'
+            },
+            {
+                internalType: 'address',
+                name: 'recipient',
+                type: 'address'
+            },
+            {
+                internalType: 'bool',
+                name: 'paid',
+                type: 'bool'
+            },
+            {
+                internalType: 'uint256',
+                name: 'pullRequest',
+                type: 'uint256'
+            },
+            {
+                internalType: 'string',
+                name: 'commitHash',
+                type: 'string'
+            }
+        ],
+        stateMutability: 'view',
+        type: 'function'
+    },
+    {
+        inputs: [
+            {
+                internalType: 'uint256',
+                name: '_issue',
+                type: 'uint256'
+            }
+        ],
+        name: 'flush',
+        outputs: [],
+        stateMutability: 'nonpayable',
+        type: 'function'
+    },
+    {
+        inputs: [],
+        name: 'funderAddress',
+        outputs: [
+            {
+                internalType: 'address',
+                name: '',
+                type: 'address'
+            }
+        ],
+        stateMutability: 'view',
+        type: 'function'
+    },
+    {
+        inputs: [
+            {
+                internalType: 'uint256',
+                name: '_issue',
+                type: 'uint256'
+            }
+        ],
+        name: 'getIssue',
+        outputs: [
+            {
+                components: [
+                    {
+                        internalType: 'uint256',
+                        name: 'issue',
+                        type: 'uint256'
+                    },
+                    {
+                        internalType: 'uint256',
+                        name: 'amount',
+                        type: 'uint256'
+                    },
+                    {
+                        internalType: 'string',
+                        name: 'previousCommitHash',
+                        type: 'string'
+                    },
+                    {
+                        internalType: 'address',
+                        name: 'recipient',
+                        type: 'address'
+                    },
+                    {
+                        internalType: 'bool',
+                        name: 'paid',
+                        type: 'bool'
+                    },
+                    {
+                        internalType: 'uint256',
+                        name: 'pullRequest',
+                        type: 'uint256'
+                    },
+                    {
+                        internalType: 'string',
+                        name: 'commitHash',
+                        type: 'string'
+                    }
+                ],
+                internalType: 'struct Pattini.Contribution',
+                name: '',
+                type: 'tuple'
+            }
+        ],
+        stateMutability: 'view',
+        type: 'function'
+    },
+    {
+        inputs: [],
+        name: 'owner',
+        outputs: [
+            {
+                internalType: 'address',
+                name: '',
+                type: 'address'
+            }
+        ],
+        stateMutability: 'view',
+        type: 'function'
+    },
+    {
+        inputs: [
+            {
+                internalType: 'uint256',
+                name: '_issue',
+                type: 'uint256'
+            },
+            {
+                internalType: 'uint256',
+                name: '_pullRequest',
+                type: 'uint256'
+            },
+            {
+                internalType: 'string',
+                name: '_commitHash',
+                type: 'string'
+            }
+        ],
+        name: 'pay',
+        outputs: [],
+        stateMutability: 'nonpayable',
+        type: 'function'
+    },
+    {
+        inputs: [],
+        name: 'renounceOwnership',
+        outputs: [],
+        stateMutability: 'nonpayable',
+        type: 'function'
+    },
+    {
+        inputs: [],
+        name: 'repositoryName',
+        outputs: [
+            {
+                internalType: 'string',
+                name: '',
+                type: 'string'
+            }
+        ],
+        stateMutability: 'view',
+        type: 'function'
+    },
+    {
+        inputs: [
+            {
+                internalType: 'uint256',
+                name: '_issue',
+                type: 'uint256'
+            },
+            {
+                internalType: 'uint256',
+                name: '_amount',
+                type: 'uint256'
+            },
+            {
+                internalType: 'string',
+                name: '_previousCommitHash',
+                type: 'string'
+            },
+            {
+                internalType: 'address',
+                name: '_recipient',
+                type: 'address'
+            }
+        ],
+        name: 'take',
+        outputs: [],
+        stateMutability: 'nonpayable',
+        type: 'function'
+    },
+    {
+        inputs: [],
+        name: 'tokenAddress',
+        outputs: [
+            {
+                internalType: 'address',
+                name: '',
+                type: 'address'
+            }
+        ],
+        stateMutability: 'view',
+        type: 'function'
+    },
+    {
+        inputs: [
+            {
+                internalType: 'address',
+                name: 'newOwner',
+                type: 'address'
+            }
+        ],
+        name: 'transferOwnership',
+        outputs: [],
+        stateMutability: 'nonpayable',
+        type: 'function'
+    },
+    {
+        stateMutability: 'payable',
+        type: 'receive'
+    }
+];
 
 
 /***/ }),

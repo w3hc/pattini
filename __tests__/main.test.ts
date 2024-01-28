@@ -15,10 +15,10 @@ describe('action', () => {
     await main.run()
     expect(runMock).toHaveReturned()
     expect(errorMock).not.toHaveBeenCalled()
-  })
+  }, 100000)
 
   it('sets a failed status', async () => {
     await main.run()
     expect(runMock).toHaveReturned()
-  })
+  }, 100000)
 })
