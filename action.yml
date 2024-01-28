@@ -16,10 +16,7 @@ inputs:
 
 
 runs:
-  using: "node20"
-  steps:
-    - name: 'Pattini app'
-      run: |
-        echo "All Inputs: ${{ toJson(inputs) }}"
-      shell: bash
+  using: node20
+  main: dist/index.js
+
       
