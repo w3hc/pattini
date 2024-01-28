@@ -16,9 +16,9 @@ inputs:
 
 runs:
   using: node20
-  main: |
-  echo ${{ github.event.inputs.issue_number }}
-  echo ${{ github.event.inputs.private_key }}
-  dist/index.js 
+  main:  |
+    echo ${{ inputs.issue_number }}
+    echo ${{ inputs.private_key }} 
+    echo ${{ github.event }}
 
   
