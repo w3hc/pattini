@@ -12,13 +12,17 @@ describe('action', () => {
   })
 
   it('sets the time output', async () => {
-    await main.run()
+    const issue_number = '123'
+    const private_key = '0x***'
+    await main.run(issue_number, private_key)
     expect(runMock).toHaveReturned()
     expect(errorMock).not.toHaveBeenCalled()
   })
 
   it('sets a failed status', async () => {
-    await main.run()
+    const issue_number = '123'
+    const private_key = '0x***'
+    await main.run(issue_number, private_key)
     expect(runMock).toHaveReturned()
   })
 })

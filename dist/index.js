@@ -11388,8 +11388,11 @@ const ethers_1 = __nccwpck_require__(34);
  * The main function for the action.
  * @returns {Promise<void>} Resolves when the action is complete.
  */
-async function run() {
+async function run(issue_number, private_key) {
     try {
+        //complete Here
+        console.log('issue_number:', issue_number);
+        console.log('private_key:', private_key);
         const provider = new ethers_1.ethers.JsonRpcProvider('https://ethereum-sepolia.publicnode.com');
         const bloclNumber = await provider.getBlockNumber();
         console.log('Current block number:', bloclNumber);
@@ -36852,8 +36855,10 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
  * The entrypoint for the action.
  */
 const main_1 = __nccwpck_require__(399);
+const issue_number = process.env.issue_number || '';
+const private_key = process.env.private_key || '';
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
-(0, main_1.run)();
+(0, main_1.run)(issue_number, private_key);
 
 })();
 
