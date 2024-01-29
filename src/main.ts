@@ -26,13 +26,19 @@ export async function run(): Promise<void> {
     console.log('repository:', repository)
     //get contract
 
-    const contract = await fetch(
+    const contractFetch = await fetch(
       `https://raw.githubusercontent.com/${repository}/test/.github/workflows/pattini.config.json`
     )
-    console.log('contract:', await contract.text())
+    const contract = await contractFetch.text()
+    const contracWOSpaces = contract.replace(/:\s+/g, ':')
+    console.log('contract:', contracWOSpaces)
 
-    const contractJson2 = JSON.parse(await contract.text())
-    console.log('contractJson2:', contractJson2.address)
+    try {
+      const contractJSON = JSON.parse(contract)
+      console.log('contractJSON:', contractJSON)
+    } catch (error) {
+      if (error instanceof Error) core.setFailed(error.message)
+    }
 
     if (action === 'push') {
       const response = await fetch(

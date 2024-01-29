@@ -11405,10 +11405,18 @@ async function run() {
         const recipientAddress = issueNumberDataSplit[issueNumberDataSplit.length - 1];
         console.log('repository:', repository);
         //get contract
-        const contract = await fetch(`https://raw.githubusercontent.com/${repository}/test/.github/workflows/pattini.config.json`);
-        console.log('contract:', await contract.text());
-        const contractJson2 = JSON.parse(await contract.text());
-        console.log('contractJson2:', contractJson2.address);
+        const contractFetch = await fetch(`https://raw.githubusercontent.com/${repository}/test/.github/workflows/pattini.config.json`);
+        const contract = await contractFetch.text();
+        const contracWOSpaces = contract.replace(/:\s+/g, ':');
+        console.log('contract:', contracWOSpaces);
+        try {
+            const contractJSON = JSON.parse(contract);
+            console.log('contractJSON:', contractJSON);
+        }
+        catch (error) {
+            if (error instanceof Error)
+                core.setFailed(error.message);
+        }
         if (action === 'push') {
             const response = await fetch(`https://api.github.com/repos/${repository}/issues/${issueNumber}`, {
                 headers: {
