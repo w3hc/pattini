@@ -29,8 +29,12 @@ export async function run(): Promise<void> {
     const contract = await fetch(
       `https://raw.githubusercontent.com/${repository}/blob/test/.github/workflows/pattini.config.json`
     )
-    const fileContent = await contract.json()
-    console.log('fileContent:', fileContent)
+    console.log('contract:', contract.text())
+
+    const rawContent = await contract.text()
+    if (rawContent.trim() !== '') {
+      console.log('rawContent:', JSON.parse(rawContent))
+    }
 
     if (action === 'push') {
       const response = await fetch(
