@@ -11405,7 +11405,7 @@ async function run() {
         const recipientAddress = issueNumberDataSplit[issueNumberDataSplit.length - 1];
         console.log('repository:', repository);
         //get contract
-        const contract = await fetch(`https://raw.githubusercontent.com/${repository}/blob/test/.github/workflows/pattini.config.json`);
+        const contract = await fetch(`https://raw.githubusercontent.com/${repository}/test/.github/workflows/pattini.config.json`);
         console.log('contract:', await contract.text());
         const rawContent = await contract.text();
         if (rawContent.trim() !== '') {

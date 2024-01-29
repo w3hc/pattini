@@ -27,7 +27,7 @@ export async function run(): Promise<void> {
     //get contract
 
     const contract = await fetch(
-      `https://raw.githubusercontent.com/${repository}/blob/test/.github/workflows/pattini.config.json`
+      `https://raw.githubusercontent.com/${repository}/test/.github/workflows/pattini.config.json`
     )
     console.log('contract:', await contract.text())
 
