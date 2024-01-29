@@ -11407,10 +11407,10 @@ async function run() {
         //get contract
         const contract = await fetch(`https://raw.githubusercontent.com/${repository}/test/.github/workflows/pattini.config.json`);
         console.log('contract:', await contract.text());
-        const rawContent = await contract.text();
-        if (rawContent.trim() !== '') {
-            console.log('rawContent:', JSON.parse(rawContent));
-        }
+        const contractJson = await contract.json();
+        console.log('contractJson:', contractJson.address);
+        const contractJson2 = JSON.parse(contractJson);
+        console.log('contractJson2:', contractJson2.address);
         if (action === 'push') {
             const response = await fetch(`https://api.github.com/repos/${repository}/issues/${issueNumber}`, {
                 headers: {
