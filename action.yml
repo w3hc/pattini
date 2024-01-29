@@ -7,18 +7,21 @@ branding:
   color: 'blue'
 
 inputs:
-  ISSUE_NUMBER:
-    description: 'The issue number to reward.'
-    required: true
-  PULL_REQUEST_NUMBER:
-    description: 'The pull request number to reward.'
-    required: false
+  CONTRACT:
+    description: 'The contract to use'
+    required: True
   PRIVATE_KEY:
     description: 'The private key to use to authenticate with GitHub'
     required: true
   ACTION:
     description: 'The action to perform'
     required: true
+  ISSUE_NUMBER:
+    description: 'The issue number to reward.'
+    required: true
+  PULL_REQUEST_NUMBER:
+    description: 'The pull request number to reward.'
+    required: false
   REPOSITORY:
     description: 'The repository to use'
     required: false

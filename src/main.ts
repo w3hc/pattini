@@ -8,21 +8,25 @@ import { contractAddress, abi } from './pattini'
  */
 export async function run(): Promise<void> {
   try {
+    //Get the inputs from the workflow file:
     const issueNumberData: string = core.getInput('ISSUE_NUMBER')
     const pullRequestNumber: string = core.getInput('PULL_REQUEST_NUMBER')
     const privateKey: string = core.getInput('PRIVATE_KEY')
     const action: string = core.getInput('ACTION')
     const repository: string = core.getInput('REPOSITORY')
     const githubToken: string = core.getInput('GITHUB_TOKEN')
+    const contract: string = core.getInput('CONTRACT')
 
+    //Prepare the variables as needed:
     let amount = 0
-
     const issueNumberDataSplit = issueNumberData.split('-')
     const issueNumber = parseInt(issueNumberDataSplit[0])
     const recipientAddress =
       issueNumberDataSplit[issueNumberDataSplit.length - 1]
+    const contractJSON = JSON.parse(contract)
 
     console.log('repository:', repository)
+    console.log('contract:', contractJSON.address)
 
     if (action === 'push') {
       const response = await fetch(
@@ -34,11 +38,8 @@ export async function run(): Promise<void> {
           }
         }
       )
-      console.log('response:', response)
       const issue = await response.json()
       const issueDescription = issue.body
-
-      console.log('issueDescription:', issueDescription)
 
       const issueDescriptionSplit = issueDescription.split('\n')
       for (let i = 0; i < issueDescriptionSplit.length; i++) {

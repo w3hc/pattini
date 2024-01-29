@@ -11391,17 +11391,22 @@ const pattini_1 = __nccwpck_require__(9663);
  */
 async function run() {
     try {
+        //Get the inputs from the workflow file:
         const issueNumberData = core.getInput('ISSUE_NUMBER');
         const pullRequestNumber = core.getInput('PULL_REQUEST_NUMBER');
         const privateKey = core.getInput('PRIVATE_KEY');
         const action = core.getInput('ACTION');
         const repository = core.getInput('REPOSITORY');
         const githubToken = core.getInput('GITHUB_TOKEN');
+        const contract = core.getInput('CONTRACT');
+        //Prepare the variables as needed:
         let amount = 0;
         const issueNumberDataSplit = issueNumberData.split('-');
         const issueNumber = parseInt(issueNumberDataSplit[0]);
         const recipientAddress = issueNumberDataSplit[issueNumberDataSplit.length - 1];
+        const contractJSON = JSON.parse(contract);
         console.log('repository:', repository);
+        console.log('contract:', contractJSON.address);
         if (action === 'push') {
             const response = await fetch(`https://api.github.com/repos/${repository}/issues/${issueNumber}`, {
                 headers: {
@@ -11409,10 +11414,8 @@ async function run() {
                     Accept: 'application/vnd.github.v3+json'
                 }
             });
-            console.log('response:', response);
             const issue = await response.json();
             const issueDescription = issue.body;
-            console.log('issueDescription:', issueDescription);
             const issueDescriptionSplit = issueDescription.split('\n');
             for (let i = 0; i < issueDescriptionSplit.length; i++) {
                 const line = issueDescriptionSplit[i];

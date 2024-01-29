@@ -61,6 +61,7 @@ jobs:
           ACTION: 'take'
           REPOSITORY: 'W3HC/fables-de-lafontaine'
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CONTRACT: '{"address": "0x4ce76EA09136fA38CD54c2EE82ab8403A9b8A414", "abi": [{...}]}'
 
 #      - name: Print Output
 #        id: output
