@@ -8,37 +8,50 @@ import { contractAddress, abi } from './pattini'
  */
 export async function run(): Promise<void> {
   try {
-    const issueNumber: string = core.getInput('ISSUE_NUMBER')
+    const issueNumberData: string = core.getInput('ISSUE_NUMBER')
     const pullRequestNumber: string = core.getInput('PULL_REQUEST_NUMBER')
     const privateKey: string = core.getInput('PRIVATE_KEY')
     const action: string = core.getInput('ACTION')
 
-    //complete Here
-    console.log('issueNumber:', issueNumber)
-    console.log('pullRequestNumber:', pullRequestNumber)
-    console.log('privateKey:', privateKey)
-    console.log('action:', action)
+    const issueNumberDataSplit = issueNumberData.split('-')
+    const issueNumber = parseInt(issueNumberDataSplit[0])
+    const recipientAddress = parseInt(issueNumberDataSplit[issueNumberDataSplit.length - 1])
 
-    const provider = new ethers.JsonRpcProvider(
-      'https://ethereum-sepolia.publicnode.com'
-    )
-    const blockNumber = await provider.getBlockNumber()
-    console.log('Current block number:', blockNumber)
+    if (action === "push") {
+      console.log('action:', action)
 
-    // const specialSigner = new ethers.Wallet(privateKey, provider)
+      console.log('issueNumber:', issueNumber)
+      console.log('recipientAddress:', recipientAddress)
+      console.log('privateKey:', privateKey)
+    } else {
+      console.log('action:', action)
+      console.log('issueNumber:', issueNumber)
+      console.log('pullRequestNumber:', pullRequestNumber)
+      console.log('recipientAddress:', recipientAddress)
+      console.log('privateKey:', privateKey)
 
-    // const pattini = new ethers.Contract(contractAddress, abi, specialSigner)
-    const pattini = new ethers.Contract(contractAddress, abi, provider)
+      const provider = new ethers.JsonRpcProvider(
+        'https://ethereum-sepolia.publicnode.com'
+      )
+      const blockNumber = await provider.getBlockNumber()
+      console.log('Current block number:', blockNumber)
 
-    // const issueNumber = 88888
-    // const amount = 42
-    // const contributor = '0xD8a394e7d7894bDF2C57139fF17e5CBAa29Dd977'
-    // const previousCommitHash = 'abcde'
+      // const specialSigner = new ethers.Wallet(privateKey, provider)
 
-    const checkTokenAddress = await pattini.tokenAddress()
+      // const pattini = new ethers.Contract(contractAddress, abi, specialSigner)
+      const pattini = new ethers.Contract(contractAddress, abi, provider)
 
-    console.log('token address:', checkTokenAddress) // Should return 0xe6BCD785b90dc16d667B022cc871c046587d9Ac5
-    console.log('Should return 0xe6BCD785b90dc16d667B022cc871c046587d9Ac5')
+      // const issueNumber = 88888
+      // const amount = 42
+      // const contributor = '0xD8a394e7d7894bDF2C57139fF17e5CBAa29Dd977'
+      // const previousCommitHash = 'abcde'
+
+      const checkTokenAddress = await pattini.tokenAddress()
+
+      console.log('token address:', checkTokenAddress) // Should return 0xe6BCD785b90dc16d667B022cc871c046587d9Ac5
+      console.log('Should return 0xe6BCD785b90dc16d667B022cc871c046587d9Ac5')
+
+    }
 
     // TODO: trigger on-chain txs
     // const take = await pattini.take(
