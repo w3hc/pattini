@@ -11397,7 +11397,7 @@ async function run() {
         const action = core.getInput('ACTION');
         const issueNumberDataSplit = issueNumberData.split('-');
         const issueNumber = parseInt(issueNumberDataSplit[0]);
-        const recipientAddress = parseInt(issueNumberDataSplit[issueNumberDataSplit.length - 1]);
+        const recipientAddress = issueNumberDataSplit[issueNumberDataSplit.length - 1];
         if (action === 'push') {
             console.log('action:', action);
             console.log('issueNumber:', issueNumber);
