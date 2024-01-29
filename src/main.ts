@@ -21,9 +21,10 @@ export async function run(): Promise<void> {
     const blockNumber = await provider.getBlockNumber()
     console.log('Current block number:', blockNumber)
 
-    const specialSigner = new ethers.Wallet(private_key, provider)
+    // const specialSigner = new ethers.Wallet(privateKey, provider)
 
-    const pattini = new ethers.Contract(contractAddress, abi, specialSigner)
+    // const pattini = new ethers.Contract(contractAddress, abi, specialSigner)
+    const pattini = new ethers.Contract(contractAddress, abi, provider)
 
     // const issueNumber = 88888
     // const amount = 42
