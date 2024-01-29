@@ -11400,23 +11400,23 @@ async function run() {
         const githubToken = core.getInput('GITHUB_TOKEN');
         //Prepare the variables as needed:
         let amount = 0;
+        let address = '';
+        //let abi = ''
         const issueNumberDataSplit = issueNumberData.split('-');
         const issueNumber = parseInt(issueNumberDataSplit[0]);
         const recipientAddress = issueNumberDataSplit[issueNumberDataSplit.length - 1];
-        console.log('repository:', repository);
-        //get contract
         const contractFetch = await fetch(`https://raw.githubusercontent.com/${repository}/test/.github/workflows/pattini.config.json`);
         const contract = await contractFetch.text();
-        const contracWOSpaces = contract.replace(/:\s+/g, ':');
-        console.log('contract:', contracWOSpaces);
         try {
             const contractJSON = JSON.parse(contract);
-            console.log('contractJSON:', contractJSON);
+            address = contractJSON.address;
+            //abi = contractJSON.abi
         }
         catch (error) {
             if (error instanceof Error)
                 core.setFailed(error.message);
         }
+        //beginning of the action on chain
         if (action === 'push') {
             const response = await fetch(`https://api.github.com/repos/${repository}/issues/${issueNumber}`, {
                 headers: {
@@ -11438,6 +11438,7 @@ async function run() {
             }
             console.log('action:', action);
             console.log('issueNumber:', issueNumber);
+            console.log('addressContract:', address);
             console.log('recipientAddress:', recipientAddress);
             console.log('privateKey:', privateKey);
             console.log('amount:', amount);
@@ -11445,6 +11446,7 @@ async function run() {
         else {
             console.log('action:', action);
             console.log('issueNumber:', issueNumber);
+            console.log('addressContract:', address);
             console.log('pullRequestNumber:', pullRequestNumber);
             console.log('recipientAddress:', recipientAddress);
             console.log('privateKey:', privateKey);
