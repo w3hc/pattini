@@ -26,6 +26,10 @@ describe('action', () => {
           return '0x123456789'
         case 'ACTION':
           return 'take'
+        case 'REPOSITORY':
+          return 'pattini'
+        case 'GITHUB_TOKEN':
+          return '123456789'
         default:
           return ''
       }

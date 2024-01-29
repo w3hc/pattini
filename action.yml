@@ -19,6 +19,12 @@ inputs:
   ACTION:
     description: 'The action to perform'
     required: true
+  REPOSITORY:
+    description: 'The repository to use'
+    required: false
+  GITHUB_TOKEN:
+    description: 'The GitHub token to use'
+    required: false
 
 runs:
   using: node20

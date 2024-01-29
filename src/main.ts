@@ -12,18 +12,51 @@ export async function run(): Promise<void> {
     const pullRequestNumber: string = core.getInput('PULL_REQUEST_NUMBER')
     const privateKey: string = core.getInput('PRIVATE_KEY')
     const action: string = core.getInput('ACTION')
+    const repository: string = core.getInput('REPOSITORY')
+    const githubToken: string = core.getInput('GITHUB_TOKEN')
+
+    let amount = 0
 
     const issueNumberDataSplit = issueNumberData.split('-')
     const issueNumber = parseInt(issueNumberDataSplit[0])
     const recipientAddress =
       issueNumberDataSplit[issueNumberDataSplit.length - 1]
 
+    console.log('repository:', repository)
+
     if (action === 'push') {
+      const response = await fetch(
+        `https://api.github.com/repos/${repository}/issues/${issueNumber}`,
+        {
+          headers: {
+            Authorization: `Bearer ${githubToken}`,
+            Accept: 'application/vnd.github.v3+json'
+          }
+        }
+      )
+      console.log('response:', response)
+      const issue = await response.json()
+      const issueDescription = issue.body
+
+      console.log('issueDescription:', issueDescription)
+
+      const issueDescriptionSplit = issueDescription.split('\n')
+      for (let i = 0; i < issueDescriptionSplit.length; i++) {
+        const line = issueDescriptionSplit[i]
+        const [key, value] = line.split(':').map((item: string) => item.trim())
+        if (key === 'Amount') {
+          const numberArray = value.match(/\d+/g)?.join('') ?? ''
+          amount = parseInt(numberArray)
+          break
+        }
+      }
+
       console.log('action:', action)
 
       console.log('issueNumber:', issueNumber)
       console.log('recipientAddress:', recipientAddress)
       console.log('privateKey:', privateKey)
+      console.log('amount:', amount)
     } else {
       console.log('action:', action)
       console.log('issueNumber:', issueNumber)
