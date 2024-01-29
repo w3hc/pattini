@@ -15,7 +15,6 @@ export async function run(): Promise<void> {
     const action: string = core.getInput('ACTION')
     const repository: string = core.getInput('REPOSITORY')
     const githubToken: string = core.getInput('GITHUB_TOKEN')
-    const contract: string = core.getInput('CONTRACT')
 
     //Prepare the variables as needed:
     let amount = 0
@@ -23,10 +22,15 @@ export async function run(): Promise<void> {
     const issueNumber = parseInt(issueNumberDataSplit[0])
     const recipientAddress =
       issueNumberDataSplit[issueNumberDataSplit.length - 1]
-    const contractJSON = JSON.parse(contract)
 
     console.log('repository:', repository)
-    console.log('contract:', contractJSON.address)
+    //get contract
+
+    const contract = await fetch(
+      `https://raw.githubusercontent.com/${repository}/blob/test/.github/workflows/pattini.config.json`
+    )
+    const fileContent = await contract.json()
+    console.log('fileContent:', fileContent)
 
     if (action === 'push') {
       const response = await fetch(

@@ -7,9 +7,6 @@ branding:
   color: 'blue'
 
 inputs:
-  CONTRACT:
-    description: 'The contract to use'
-    required: True
   PRIVATE_KEY:
     description: 'The private key to use to authenticate with GitHub'
     required: true
