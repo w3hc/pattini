@@ -55,8 +55,9 @@ jobs:
         id: test-action
         uses: ./
         with:
-          milliseconds: 2000
+          ISSUE_NUMBER: 1
+          PRIVATE_KEY: ${{ secrets.WALLET_OWNER_PRIVATE_KEY }}
 
-      - name: Print Output
-        id: output
-        run: echo "${{ steps.test-action.outputs.time }}"
+#      - name: Print Output
+#        id: output
+#        run: echo "${{ steps.test-action.outputs.time }}"
