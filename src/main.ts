@@ -7,6 +7,13 @@ import { ethers } from 'ethers'
  */
 export async function run(): Promise<void> {
   try {
+    const issue_number: string = core.getInput('ISSUE_NUMBER')
+    const private_key: string = core.getInput('PRIVATE_KEY')
+
+    //complete Here
+    console.log('issue_number:', issue_number)
+    console.log('private_key:', private_key)
+
     const provider = new ethers.JsonRpcProvider(
       'https://ethereum-sepolia.publicnode.com'
     )

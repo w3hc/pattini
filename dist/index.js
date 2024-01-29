@@ -11390,6 +11390,11 @@ const ethers_1 = __nccwpck_require__(34);
  */
 async function run() {
     try {
+        const issue_number = core.getInput('ISSUE_NUMBER');
+        const private_key = core.getInput('PRIVATE_KEY');
+        //complete Here
+        console.log('issue_number:', issue_number);
+        console.log('private_key:', private_key);
         const provider = new ethers_1.ethers.JsonRpcProvider('https://ethereum-sepolia.publicnode.com');
         const bloclNumber = await provider.getBlockNumber();
         console.log('Current block number:', bloclNumber);

@@ -7,15 +7,16 @@ branding:
   color: 'blue'
 
 inputs:
-  milliseconds:
-    description: 'Your input description here'
+  ISSUE_NUMBER:
+    description: 'The issue number to reward.'
     required: true
-    default: '1000'
+  PRIVATE_KEY:
+    description: 'The private key to use to authenticate with GitHub'
+    required: true
 
-outputs:
-  time:
-    description: 'Your output description here'
 
 runs:
   using: node20
   main: dist/index.js
+
+      
