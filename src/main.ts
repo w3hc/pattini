@@ -8,12 +8,14 @@ import { contractAddress, abi } from './pattini'
  */
 export async function run(): Promise<void> {
   try {
-    const issue_number: string = core.getInput('ISSUE_NUMBER')
-    const private_key: string = core.getInput('PRIVATE_KEY')
+    const issueNumber: string = core.getInput('ISSUE_NUMBER')
+    const privateKey: string = core.getInput('PRIVATE_KEY')
+    const action: string = core.getInput('ACTION')
 
     //complete Here
-    console.log('issue_number:', issue_number)
-    console.log('private_key:', private_key)
+    console.log('issueNumber:', issueNumber)
+    console.log('privateKey:', privateKey)
+    console.log('action:', action)
 
     const provider = new ethers.JsonRpcProvider(
       'https://ethereum-sepolia.publicnode.com'
