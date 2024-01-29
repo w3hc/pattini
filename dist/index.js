@@ -11392,10 +11392,12 @@ const pattini_1 = __nccwpck_require__(9663);
 async function run() {
     try {
         const issueNumber = core.getInput('ISSUE_NUMBER');
+        const pullRequestNumber = core.getInput('PULL_REQUEST_NUMBER');
         const privateKey = core.getInput('PRIVATE_KEY');
         const action = core.getInput('ACTION');
         //complete Here
         console.log('issueNumber:', issueNumber);
+        console.log('pullRequestNumber:', pullRequestNumber);
         console.log('privateKey:', privateKey);
         console.log('action:', action);
         const provider = new ethers_1.ethers.JsonRpcProvider('https://ethereum-sepolia.publicnode.com');

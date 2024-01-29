@@ -20,6 +20,8 @@ describe('action', () => {
       switch (name) {
         case 'ISSUE_NUMBER':
           return '1'
+        case 'PULL_REQUEST_NUMBER':
+          return '2'
         case 'PRIVATE_KEY':
           return '0x123456789'
         case 'ACTION':

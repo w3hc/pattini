@@ -9,11 +9,13 @@ import { contractAddress, abi } from './pattini'
 export async function run(): Promise<void> {
   try {
     const issueNumber: string = core.getInput('ISSUE_NUMBER')
+    const pullRequestNumber: string = core.getInput('PULL_REQUEST_NUMBER')
     const privateKey: string = core.getInput('PRIVATE_KEY')
     const action: string = core.getInput('ACTION')
 
     //complete Here
     console.log('issueNumber:', issueNumber)
+    console.log('pullRequestNumber:', pullRequestNumber)
     console.log('privateKey:', privateKey)
     console.log('action:', action)
 

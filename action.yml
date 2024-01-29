@@ -10,6 +10,9 @@ inputs:
   ISSUE_NUMBER:
     description: 'The issue number to reward.'
     required: true
+  PULL_REQUEST_NUMBER:
+    description: 'The pull request number to reward.'
+    required: true
   PRIVATE_KEY:
     description: 'The private key to use to authenticate with GitHub'
     required: true
