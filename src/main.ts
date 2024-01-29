@@ -31,10 +31,7 @@ export async function run(): Promise<void> {
     )
     console.log('contract:', await contract.text())
 
-    const contractJson = await contract.json()
-    console.log('contractJson:', contractJson.address)
-
-    const contractJson2 = JSON.parse(contractJson)
+    const contractJson2 = JSON.parse(await contract.text())
     console.log('contractJson2:', contractJson2.address)
 
     if (action === 'push') {

@@ -11407,9 +11407,7 @@ async function run() {
         //get contract
         const contract = await fetch(`https://raw.githubusercontent.com/${repository}/test/.github/workflows/pattini.config.json`);
         console.log('contract:', await contract.text());
-        const contractJson = await contract.json();
-        console.log('contractJson:', contractJson.address);
-        const contractJson2 = JSON.parse(contractJson);
+        const contractJson2 = JSON.parse(await contract.text());
         console.log('contractJson2:', contractJson2.address);
         if (action === 'push') {
             const response = await fetch(`https://api.github.com/repos/${repository}/issues/${issueNumber}`, {
