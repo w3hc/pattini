@@ -15,9 +15,11 @@ export async function run(): Promise<void> {
 
     const issueNumberDataSplit = issueNumberData.split('-')
     const issueNumber = parseInt(issueNumberDataSplit[0])
-    const recipientAddress = parseInt(issueNumberDataSplit[issueNumberDataSplit.length - 1])
+    const recipientAddress = parseInt(
+      issueNumberDataSplit[issueNumberDataSplit.length - 1]
+    )
 
-    if (action === "push") {
+    if (action === 'push') {
       console.log('action:', action)
 
       console.log('issueNumber:', issueNumber)
@@ -50,7 +52,6 @@ export async function run(): Promise<void> {
 
       console.log('token address:', checkTokenAddress) // Should return 0xe6BCD785b90dc16d667B022cc871c046587d9Ac5
       console.log('Should return 0xe6BCD785b90dc16d667B022cc871c046587d9Ac5')
-
     }
 
     // TODO: trigger on-chain txs

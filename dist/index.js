@@ -11391,28 +11391,39 @@ const pattini_1 = __nccwpck_require__(9663);
  */
 async function run() {
     try {
-        const issueNumber = core.getInput('ISSUE_NUMBER');
+        const issueNumberData = core.getInput('ISSUE_NUMBER');
         const pullRequestNumber = core.getInput('PULL_REQUEST_NUMBER');
         const privateKey = core.getInput('PRIVATE_KEY');
         const action = core.getInput('ACTION');
-        //complete Here
-        console.log('issueNumber:', issueNumber);
-        console.log('pullRequestNumber:', pullRequestNumber);
-        console.log('privateKey:', privateKey);
-        console.log('action:', action);
-        const provider = new ethers_1.ethers.JsonRpcProvider('https://ethereum-sepolia.publicnode.com');
-        const blockNumber = await provider.getBlockNumber();
-        console.log('Current block number:', blockNumber);
-        // const specialSigner = new ethers.Wallet(privateKey, provider)
-        // const pattini = new ethers.Contract(contractAddress, abi, specialSigner)
-        const pattini = new ethers_1.ethers.Contract(pattini_1.contractAddress, pattini_1.abi, provider);
-        // const issueNumber = 88888
-        // const amount = 42
-        // const contributor = '0xD8a394e7d7894bDF2C57139fF17e5CBAa29Dd977'
-        // const previousCommitHash = 'abcde'
-        const checkTokenAddress = await pattini.tokenAddress();
-        console.log('token address:', checkTokenAddress); // Should return 0xe6BCD785b90dc16d667B022cc871c046587d9Ac5
-        console.log('Should return 0xe6BCD785b90dc16d667B022cc871c046587d9Ac5');
+        const issueNumberDataSplit = issueNumberData.split('-');
+        const issueNumber = parseInt(issueNumberDataSplit[0]);
+        const recipientAddress = parseInt(issueNumberDataSplit[issueNumberDataSplit.length - 1]);
+        if (action === 'push') {
+            console.log('action:', action);
+            console.log('issueNumber:', issueNumber);
+            console.log('recipientAddress:', recipientAddress);
+            console.log('privateKey:', privateKey);
+        }
+        else {
+            console.log('action:', action);
+            console.log('issueNumber:', issueNumber);
+            console.log('pullRequestNumber:', pullRequestNumber);
+            console.log('recipientAddress:', recipientAddress);
+            console.log('privateKey:', privateKey);
+            const provider = new ethers_1.ethers.JsonRpcProvider('https://ethereum-sepolia.publicnode.com');
+            const blockNumber = await provider.getBlockNumber();
+            console.log('Current block number:', blockNumber);
+            // const specialSigner = new ethers.Wallet(privateKey, provider)
+            // const pattini = new ethers.Contract(contractAddress, abi, specialSigner)
+            const pattini = new ethers_1.ethers.Contract(pattini_1.contractAddress, pattini_1.abi, provider);
+            // const issueNumber = 88888
+            // const amount = 42
+            // const contributor = '0xD8a394e7d7894bDF2C57139fF17e5CBAa29Dd977'
+            // const previousCommitHash = 'abcde'
+            const checkTokenAddress = await pattini.tokenAddress();
+            console.log('token address:', checkTokenAddress); // Should return 0xe6BCD785b90dc16d667B022cc871c046587d9Ac5
+            console.log('Should return 0xe6BCD785b90dc16d667B022cc871c046587d9Ac5');
+        }
         // TODO: trigger on-chain txs
         // const take = await pattini.take(
         //   issueNumber,
