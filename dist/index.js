@@ -11399,15 +11399,13 @@ async function run() {
         const provider = new ethers_1.ethers.JsonRpcProvider('https://ethereum-sepolia.publicnode.com');
         const blockNumber = await provider.getBlockNumber();
         console.log('Current block number:', blockNumber);
-        // const privateKey =
-        //   '14aa67540969c3c99e081bcc8c747bdf8d5bd8e544bf55fd2e0984d2b5a43471'
         // const specialSigner = new ethers.Wallet(privateKey, provider)
         // const pattini = new ethers.Contract(contractAddress, abi, specialSigner)
         const pattini = new ethers_1.ethers.Contract(pattini_1.contractAddress, pattini_1.abi, provider);
         // const issueNumber = 88888
         // const amount = 42
         // const contributor = '0xD8a394e7d7894bDF2C57139fF17e5CBAa29Dd977'
-        // const previousCommitHash = 'abcd'
+        // const previousCommitHash = 'abcde'
         const checkTokenAddress = await pattini.tokenAddress();
         console.log('token address:', checkTokenAddress); // Should return 0xe6BCD785b90dc16d667B022cc871c046587d9Ac5
         console.log('Should return 0xe6BCD785b90dc16d667B022cc871c046587d9Ac5');

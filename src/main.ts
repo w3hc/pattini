@@ -29,7 +29,7 @@ export async function run(): Promise<void> {
     // const issueNumber = 88888
     // const amount = 42
     // const contributor = '0xD8a394e7d7894bDF2C57139fF17e5CBAa29Dd977'
-    // const previousCommitHash = 'abcd'
+    // const previousCommitHash = 'abcde'
 
     const checkTokenAddress = await pattini.tokenAddress()
 
