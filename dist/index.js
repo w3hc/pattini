@@ -11391,11 +11391,13 @@ const pattini_1 = __nccwpck_require__(9663);
  */
 async function run() {
     try {
-        const issue_number = core.getInput('ISSUE_NUMBER');
-        const private_key = core.getInput('PRIVATE_KEY');
+        const issueNumber = core.getInput('ISSUE_NUMBER');
+        const privateKey = core.getInput('PRIVATE_KEY');
+        const action = core.getInput('ACTION');
         //complete Here
-        console.log('issue_number:', issue_number);
-        console.log('private_key:', private_key);
+        console.log('issueNumber:', issueNumber);
+        console.log('privateKey:', privateKey);
+        console.log('action:', action);
         const provider = new ethers_1.ethers.JsonRpcProvider('https://ethereum-sepolia.publicnode.com');
         const blockNumber = await provider.getBlockNumber();
         console.log('Current block number:', blockNumber);

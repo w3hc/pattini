@@ -57,6 +57,7 @@ jobs:
         with:
           ISSUE_NUMBER: 1
           PRIVATE_KEY: ${{ secrets.WALLET_OWNER_PRIVATE_KEY }}
+          ACTION: 'take'
 
 #      - name: Print Output
 #        id: output

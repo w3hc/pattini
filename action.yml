@@ -13,6 +13,9 @@ inputs:
   PRIVATE_KEY:
     description: 'The private key to use to authenticate with GitHub'
     required: true
+  ACTION:
+    description: 'The action to perform'
+    required: true
 
 
 runs:

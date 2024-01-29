@@ -22,6 +22,8 @@ describe('action', () => {
           return '1'
         case 'PRIVATE_KEY':
           return '0x123456789'
+        case 'ACTION':
+          return 'take'
         default:
           return ''
       }
