@@ -13,7 +13,8 @@ describe('action', () => {
     errorMock = jest.spyOn(core, 'error').mockImplementation()
     getInputMock = jest.spyOn(core, 'getInput').mockImplementation()
   })
-  // a refaire en ajoutant "getInputMock = jest.spyOn(core, 'getInput').mockImplementation()""
+
+  // faire tous les tests
 
   it('sets the time output', async () => {
     getInputMock.mockImplementation((name: string): string => {
