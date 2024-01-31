@@ -1,6 +1,6 @@
 import * as core from '@actions/core'
 import { ethers } from 'ethers'
-import { contractAddress, abi } from './pattini'
+//import { contractAddress, abi } from './pattini'
 
 /**
  * The main function for the action.
@@ -16,29 +16,35 @@ export async function run(): Promise<void> {
     const repository: string = core.getInput('REPOSITORY')
     const githubToken: string = core.getInput('GITHUB_TOKEN')
 
-    //Prepare the variables as needed:
-    let amount = 0
-    let address = ''
-    //let abi = ''
     const issueNumberDataSplit = issueNumberData.split('-')
     const issueNumber = parseInt(issueNumberDataSplit[0])
     const recipientAddress =
       issueNumberDataSplit[issueNumberDataSplit.length - 1]
 
+    //Get the contract address and abi from the repository using Pattini:
+    let amount = 0
+    let contractAddress = ''
+    let abi = ''
+
     const contractFetch = await fetch(
       `https://raw.githubusercontent.com/${repository}/test/.github/workflows/pattini.config.json`
     )
     const contract = await contractFetch.text()
-
     try {
       const contractJSON = JSON.parse(contract)
-      address = contractJSON.address
-      //abi = contractJSON.abi
+      contractAddress = contractJSON.address
+      abi = contractJSON.abi
     } catch (error) {
       if (error instanceof Error) core.setFailed(error.message)
     }
 
-    //beginning of the action on chain
+    const provider = new ethers.JsonRpcProvider(
+      'https://ethereum-sepolia.publicnode.com'
+    )
+    const specialSigner = new ethers.Wallet(privateKey, provider)
+    const pattini = new ethers.Contract(contractAddress, abi, specialSigner)
+
+    //Beginning of the action on chain:
     if (action === 'push') {
       const response = await fetch(
         `https://api.github.com/repos/${repository}/issues/${issueNumber}`,
@@ -65,28 +71,36 @@ export async function run(): Promise<void> {
 
       console.log('action:', action)
       console.log('issueNumber:', issueNumber)
-      console.log('addressContract:', address)
+      console.log('contractAddress:', contractAddress)
       console.log('recipientAddress:', recipientAddress)
       console.log('privateKey:', privateKey)
       console.log('amount:', amount)
+
+      // TODO: trigger on-chain txs
+      const take = await pattini.take(
+        issueNumber,
+        amount,
+        'previousCommitHash',
+        recipientAddress
+      )
+
+      const takeReceipt = await take.wait(1)
+      console.log('take:', takeReceipt.hash)
     } else {
       console.log('action:', action)
       console.log('issueNumber:', issueNumber)
-      console.log('addressContract:', address)
+      console.log('contractAddress:', contractAddress)
       console.log('pullRequestNumber:', pullRequestNumber)
       console.log('recipientAddress:', recipientAddress)
       console.log('privateKey:', privateKey)
 
-      const provider = new ethers.JsonRpcProvider(
-        'https://ethereum-sepolia.publicnode.com'
-      )
       const blockNumber = await provider.getBlockNumber()
       console.log('Current block number:', blockNumber)
 
       // const specialSigner = new ethers.Wallet(privateKey, provider)
 
       // const pattini = new ethers.Contract(contractAddress, abi, specialSigner)
-      const pattini = new ethers.Contract(contractAddress, abi, provider)
+      //const pattini = new ethers.Contract(contractAddress, abi, provider)
 
       // const issueNumber = 88888
       // const amount = 42
