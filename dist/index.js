@@ -11417,7 +11417,9 @@ async function run() {
                 core.setFailed(error.message);
         }
         const provider = new ethers_1.ethers.JsonRpcProvider('https://ethereum-sepolia.publicnode.com');
+        console.log('provider:', provider);
         const specialSigner = new ethers_1.ethers.Wallet(privateKey, provider);
+        console.log('specialSigner:', specialSigner);
         const pattini = new ethers_1.ethers.Contract(contractAddress, abi, specialSigner);
         //Beginning of the action on chain:
         if (action === 'push') {

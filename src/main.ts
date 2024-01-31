@@ -41,7 +41,10 @@ export async function run(): Promise<void> {
     const provider = new ethers.JsonRpcProvider(
       'https://ethereum-sepolia.publicnode.com'
     )
+    console.log('provider:', provider)
     const specialSigner = new ethers.Wallet(privateKey, provider)
+    console.log('specialSigner:', specialSigner)
+
     const pattini = new ethers.Contract(contractAddress, abi, specialSigner)
 
     //Beginning of the action on chain:
