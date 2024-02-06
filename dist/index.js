@@ -11397,6 +11397,9 @@ async function run() {
         const action = core.getInput('ACTION');
         const repository = core.getInput('REPOSITORY');
         const githubToken = core.getInput('GITHUB_TOKEN');
+        if (action === 'test') {
+            return;
+        }
         const issueNumberDataSplit = issueNumberData.split('-');
         const issueNumber = parseInt(issueNumberDataSplit[0]);
         const recipientAddress = issueNumberDataSplit[issueNumberDataSplit.length - 1];

@@ -15,6 +15,10 @@ export async function run(): Promise<void> {
     const repository: string = core.getInput('REPOSITORY')
     const githubToken: string = core.getInput('GITHUB_TOKEN')
 
+    if (action === 'test') {
+      return
+    }
+
     const issueNumberDataSplit = issueNumberData.split('-')
     const issueNumber = parseInt(issueNumberDataSplit[0])
     const recipientAddress =
