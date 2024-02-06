@@ -6,7 +6,7 @@ const runMock = jest.spyOn(main, 'run').mockImplementation()
 describe('main', () => {
   it('TO DO', async () => {
     // eslint-disable-next-line @typescript-eslint/no-require-imports
-    require('../src/main')
+    require('../src/index')
 
     expect(runMock).toHaveBeenCalled()
   })
