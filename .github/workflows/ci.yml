@@ -57,7 +57,7 @@ jobs:
         with:
           ISSUE_NUMBER: 1
           PULL_REQUEST_NUMBER: 2
-          PRIVATE_KEY: ${{ secrets.WALLET_OWNER_PRIVATE_KEY }}
+          PRIVATE_KEY: '${{ secrets.WALLET_OWNER_PRIVATE_KEY }}'
           ACTION: 'take'
           REPOSITORY: 'W3HC/fables-de-lafontaine'
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

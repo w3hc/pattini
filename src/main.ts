@@ -1,6 +1,5 @@
 import * as core from '@actions/core'
 import { ethers } from 'ethers'
-//import { contractAddress, abi } from './pattini'
 
 /**
  * The main function for the action.
@@ -41,10 +40,7 @@ export async function run(): Promise<void> {
     const provider = new ethers.JsonRpcProvider(
       'https://ethereum-sepolia.publicnode.com'
     )
-    console.log('provider:', provider)
     const specialSigner = new ethers.Wallet(privateKey, provider)
-    console.log('specialSigner:', specialSigner)
-
     const pattini = new ethers.Contract(contractAddress, abi, specialSigner)
 
     //Beginning of the action on chain:
@@ -96,35 +92,7 @@ export async function run(): Promise<void> {
       console.log('pullRequestNumber:', pullRequestNumber)
       console.log('recipientAddress:', recipientAddress)
       console.log('privateKey:', privateKey)
-
-      const blockNumber = await provider.getBlockNumber()
-      console.log('Current block number:', blockNumber)
-
-      // const specialSigner = new ethers.Wallet(privateKey, provider)
-
-      // const pattini = new ethers.Contract(contractAddress, abi, specialSigner)
-      //const pattini = new ethers.Contract(contractAddress, abi, provider)
-
-      // const issueNumber = 88888
-      // const amount = 42
-      // const contributor = '0xD8a394e7d7894bDF2C57139fF17e5CBAa29Dd977'
-      // const previousCommitHash = 'abcde'
-
-      const checkTokenAddress = await pattini.tokenAddress()
-
-      console.log('token address:', checkTokenAddress) // Should return 0xe6BCD785b90dc16d667B022cc871c046587d9Ac5
-      console.log('Should return 0xe6BCD785b90dc16d667B022cc871c046587d9Ac5')
     }
-
-    // TODO: trigger on-chain txs
-    // const take = await pattini.take(
-    //   issueNumber,
-    //   amount,
-    //   previousCommitHash,
-    //   contributor
-    // )
-    // const takeReceipt = await take.wait(1)
-    // console.log('take:', takeReceipt.hash)
 
     // pay
     // const pullRequestNumber = 88888
