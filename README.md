@@ -77,24 +77,24 @@ blockchain so that the account receiving the reward cannot change.
 
 Only one person will be paid per issue (the first merge for that issue).
 
-Sample directory using Pattini: 
+Sample directory using Pattini:
 [Fables de La Fontaine](https://github.com/w3hc/fables-de-lafontaine)
 
 ## Integrate Pattini in your project
 
 Here are the steps you need to take to get Pattini up and running in your repository:
 
-1. Use this directory [Pattini Contracts](https://github.com/w3hc/pattini-contracts)
+1 - Use this directory [Pattini Contracts](https://github.com/w3hc/pattini-contracts)
  to retrieve the code for the contract to be deployed
 
-2. Deploy the contract manually.
+2 - Deploy the contract manually.
 
-3. Once the contract has been deployed, copy all the contents of the `Pattini.json`
+3 - Once the contract has been deployed, copy all the contents of the `Pattini.json`
  file located in `deployments/sepolia`. In the directory where you want to add
   pattini, create the folder `.github/workflows` and create the file `pattini.config.json`
    in which you paste the content you copied earlier.
 
-4. In the same folder (`.github/workflows`),
+4 - In the same folder (`.github/workflows`),
 create the `pattini.yml` file and paste the following code:
 
 ```yml
@@ -128,7 +128,9 @@ jobs:
 
   on-merge-pull-request:
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged
+    if: github.event_name == 'pull_request' && 
+        github.event.action == 'closed' && 
+        github.event.pull_request.merged
     steps:
       - name: Extract Merged Branch Name
         id: extract-merged-branch
@@ -145,11 +147,11 @@ jobs:
 
 ```
 
-4. Create a secret variable in the GitHub parameters of your repository.
+5 - Create a secret variable in the GitHub parameters of your repository.
 This must be called `WALLET_OWNER_PRIVATE_KEY` and stores your wallet's private key,
 which will be used to pay the fees for the contract to interact with the blockchain.
 
-5. Once all these steps have been completed, the actions will be automatically
+6 - Once all these steps have been completed, the actions will be automatically
 executed each time a new branch is created and each time a branch is merged.
 
 ## Autors
