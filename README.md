@@ -6,8 +6,6 @@
 [![CodeQL](https://github.com/actions/pattini/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/actions/pattini/actions/workflows/codeql-analysis.yml)
 [![Coverage](./badges/coverage.svg)](./badges/coverage.svg)
 
-# Pattini
-
 GitHub Action to reward contributors of a given GitHub repository.
 
 ## What is Pattini?
@@ -19,7 +17,9 @@ Pattini is a GitHub Action designed to incentivize and reward contributors to yo
 The directory owner opens an issue. At the end of the description, he adds the amount of the reward that the contributor will receive if the branch he has created is merged.
 
 <u>Example of description:</u>
+
 ```md
+
 We want to enhance our website by adding a Blog page where we can regularly post articles, updates, and news related to our project/company. This will provide a platform for engaging with our audience and sharing valuable content.
 
 Tasks:
@@ -33,29 +33,39 @@ Tasks:
 ...
 
 Amount : 15 OP
+
 ```
 _Format:_
+
 ```md
+
 DESCRIPTION...
 
 Amount : AMOUNT OP
+
 ```
+
 When the contributor opens a branch from the issue, the name of the branch must begin with the number of the issue to which he is responding and end with the number of his wallet on which he wishes to receive the reward if his code is merge.
 
 <u>Example of a branch name:</u>
+
 ```texte
+
  15-Add-blog-page-to-website-0x1234567890
+
  ```
 
 _Format:_
+
 ```texte
+
 ISSUE_NUMBER-ISSUE_NAME-0xYOUR_WALLET_ADDRESS
+
 ```
 
 When the branch is created, the address at the end is stored in the blockchain so that the account receiving the reward cannot change.
 
 Only one person will be paid per issue (the first merge for that issue).
-
 
 Sample directory using Pattini: [Fables de La Fontaine](https://github.com/w3hc/fables-de-lafontaine) 
 
@@ -72,6 +82,7 @@ Here are the steps you need to take to get Pattini up and running in your reposi
 4. In the same folder (`.github/workflows`), create the `pattini.yml` file and paste the following code:
 
 ```yml
+
 name: Run Pattini
 
 on:
@@ -115,13 +126,13 @@ jobs:
           ISSUE_NUMBER: ${{ env.ISSUE_NUMBER }}
           PULL_REQUEST_NUMBER: ${{ github.event.pull_request.number }}
           REPOSITORY: ${{ github.repository }}
+          
 ```
 
 4. Create a secret variable in the GitHub parameters of your repository.
 This must be called `WALLET_OWNER_PRIVATE_KEY` and stores your wallet's private key, which will be used to pay the fees for the contract to interact with the blockchain.
 
 5. Once all these steps have been completed, the actions will be automatically executed each time a new branch is created and each time a branch is merged.
-
 
 ## Autors
 
