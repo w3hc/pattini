@@ -19,7 +19,7 @@ Pattini is a GitHub Action designed to incentivize and reward contributors to yo
 The directory owner opens an issue. At the end of the description, he adds the amount of the reward that the contributor will receive if the branch he has created is merged.
 
 <u>Example of description:</u>
-```bash
+```md
 We want to enhance our website by adding a Blog page where we can regularly post articles, updates, and news related to our project/company. This will provide a platform for engaging with our audience and sharing valuable content.
 
 Tasks:
@@ -33,24 +33,22 @@ Tasks:
 ...
 
 Amount : 15 OP
-
 ```
 _Format:_
-```bash
+```md
 DESCRIPTION...
 
 Amount : AMOUNT OP
 ```
-
 When the contributor opens a branch from the issue, the name of the branch must begin with the number of the issue to which he is responding and end with the number of his wallet on which he wishes to receive the reward if his code is merge.
 
 <u>Example of a branch name:</u>
-```bash
+```texte
  15-Add-blog-page-to-website-0x1234567890
  ```
 
 _Format:_
-```bash
+```texte
 ISSUE_NUMBER-ISSUE_NAME-0xYOUR_WALLET_ADDRESS
 ```
 
@@ -73,7 +71,7 @@ Here are the steps you need to take to get Pattini up and running in your reposi
 
 4. In the same folder (`.github/workflows`), create the `pattini.yml` file and paste the following code:
 
-```bash
+```yml
 name: Run Pattini
 
 on:
