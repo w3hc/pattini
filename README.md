@@ -12,8 +12,8 @@ GitHub Action to reward contributors of a given GitHub repository.
 
 Pattini is a GitHub Action designed to incentivize and reward contributors to your
 project for their valuable contributions. With Pattini, when you merge an issue that
-has received a satisfactory response from a contributor, they receive a reward as a
-token of appreciation.
+has received a satisfactory response from a contributor,
+they receive a reward as a token of appreciation.
 
 ## Usage
 
@@ -24,8 +24,8 @@ of the reward that the contributor will receive if the branch he has created is 
 
 ```texte
 
-We want to enhance our website by adding a Blog page where we can regularly post news.
-This will provide a platform for engaging with our audience and sharing valuable content.
+We want to enhance our website by adding a Blog page where we can post news.
+This will provide a platform for sharing valuable content.
 
 Tasks:
 
@@ -53,8 +53,8 @@ Amount : AMOUNT OP
 
 When the contributor opens a branch from the issue,
  the name of the branch must begin with the number of the issue to which he is
-  responding and end with the number of his wallet on which he wishes to receive the
-  reward if his code is merge.
+  responding and end with the number of his wallet on which he
+   wishes to receive the reward if his code is merge.
 
 **Example of a branch name:**
 
@@ -116,7 +116,6 @@ jobs:
     steps:
       - name: Extract Issue Number
         run: echo "ISSUE_NUMBER=$(echo ${{ github.ref }} | awk -F/ '{print $3}')" >> $GITHUB_ENV
-
       - name: Pattini app
         uses: w3hc/pattini@vTest
         with:
@@ -128,9 +127,7 @@ jobs:
 
   on-merge-pull-request:
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request' && 
-        github.event.action == 'closed' && 
-        github.event.pull_request.merged
+    if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged
     steps:
       - name: Extract Merged Branch Name
         id: extract-merged-branch
