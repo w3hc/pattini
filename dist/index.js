@@ -11447,25 +11447,20 @@ async function run() {
             console.log('recipientAddress:', recipientAddress);
             console.log('privateKey:', privateKey);
             console.log('amount:', amount);
-            // TODO: trigger on-chain txs
             const take = await pattini.take(issueNumber, amount, 'previousCommitHash', recipientAddress);
             const takeReceipt = await take.wait(1);
             console.log('take:', takeReceipt.hash);
         }
-        else {
+        else if (action === 'pull_request') {
             console.log('action:', action);
             console.log('issueNumber:', issueNumber);
             console.log('contractAddress:', contractAddress);
             console.log('pullRequestNumber:', pullRequestNumber);
             console.log('recipientAddress:', recipientAddress);
             console.log('privateKey:', privateKey);
+            const pay = await pattini.pay(issueNumber, parseInt(pullRequestNumber), 'commitHashNew');
+            console.log('pay:', pay.hash);
         }
-        // pay
-        // const pullRequestNumber = 88888
-        // const commitHash = 'wxyz'
-        // const pay = await pattini.pay(issueNumber, pullRequestNumber, commitHash)
-        // const payReceipt = await pay.wait(1)
-        // console.log('pay:', payReceipt.hash)
         // core.setOutput('payReceipt', payReceipt.hash)
     }
     catch (error) {
