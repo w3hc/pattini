@@ -11386,7 +11386,7 @@ const core = __importStar(__nccwpck_require__(2186));
 const ethers_1 = __nccwpck_require__(34);
 /**
  * The main function for the action.
- * @returns {Promise<void>} Resolves when the action is complete.
+ * @returns {Promise<string>} Resolves when the action is complete.
  */
 async function run() {
     try {
@@ -11398,7 +11398,7 @@ async function run() {
         const repository = core.getInput('REPOSITORY');
         const githubToken = core.getInput('GITHUB_TOKEN');
         if (action === 'test') {
-            return;
+            return 'Test';
         }
         const issueNumberDataSplit = issueNumberData.split('-');
         const issueNumber = parseInt(issueNumberDataSplit[0]);
@@ -11414,9 +11414,10 @@ async function run() {
             contractAddress = contractJSON.address;
             abi = contractJSON.abi;
         }
-        catch (error) {
-            if (error instanceof Error)
-                core.setFailed(error.message);
+        catch (errorContract) {
+            if (errorContract instanceof Error)
+                core.setFailed(errorContract.message);
+            return 'Error contract';
         }
         const provider = new ethers_1.ethers.JsonRpcProvider('https://ethereum-sepolia.publicnode.com');
         const specialSigner = new ethers_1.ethers.Wallet(privateKey, provider);
@@ -11445,9 +11446,8 @@ async function run() {
             console.log('issueNumber:', issueNumber);
             console.log('contractAddress:', contractAddress);
             console.log('recipientAddress:', recipientAddress);
-            console.log('privateKey:', privateKey);
             console.log('amount:', amount);
-            const take = await pattini.take(issueNumber, amount, 'previousCommitHash', recipientAddress);
+            const take = await pattini.take(issueNumber, amount, recipientAddress);
             const takeReceipt = await take.wait(1);
             console.log('take:', takeReceipt.hash);
         }
@@ -11457,8 +11457,7 @@ async function run() {
             console.log('contractAddress:', contractAddress);
             console.log('pullRequestNumber:', pullRequestNumber);
             console.log('recipientAddress:', recipientAddress);
-            console.log('privateKey:', privateKey);
-            const pay = await pattini.pay(issueNumber, parseInt(pullRequestNumber), 'commitHashNew');
+            const pay = await pattini.pay(issueNumber, parseInt(pullRequestNumber));
             console.log('pay:', pay.hash);
         }
         // core.setOutput('payReceipt', payReceipt.hash)
@@ -11467,6 +11466,7 @@ async function run() {
         if (error instanceof Error)
             core.setFailed(error.message);
     }
+    return 'Action completed';
 }
 exports.run = run;
 

@@ -3,9 +3,9 @@ import { ethers } from 'ethers'
 
 /**
  * The main function for the action.
- * @returns {Promise<void>} Resolves when the action is complete.
+ * @returns {Promise<string>} Resolves when the action is complete.
  */
-export async function run(): Promise<void> {
+export async function run(): Promise<string> {
   try {
     //Get the inputs from the workflow file:
     const issueNumberData: string = core.getInput('ISSUE_NUMBER')
@@ -16,7 +16,7 @@ export async function run(): Promise<void> {
     const githubToken: string = core.getInput('GITHUB_TOKEN')
 
     if (action === 'test') {
-      return
+      return 'Test'
     }
 
     const issueNumberDataSplit = issueNumberData.split('-')
@@ -37,8 +37,9 @@ export async function run(): Promise<void> {
       const contractJSON = JSON.parse(contract)
       contractAddress = contractJSON.address
       abi = contractJSON.abi
-    } catch (error) {
-      if (error instanceof Error) core.setFailed(error.message)
+    } catch (errorContract) {
+      if (errorContract instanceof Error) core.setFailed(errorContract.message)
+      return 'Error contract'
     }
 
     const provider = new ethers.JsonRpcProvider(
@@ -76,15 +77,9 @@ export async function run(): Promise<void> {
       console.log('issueNumber:', issueNumber)
       console.log('contractAddress:', contractAddress)
       console.log('recipientAddress:', recipientAddress)
-      console.log('privateKey:', privateKey)
       console.log('amount:', amount)
 
-      const take = await pattini.take(
-        issueNumber,
-        amount,
-        'previousCommitHash',
-        recipientAddress
-      )
+      const take = await pattini.take(issueNumber, amount, recipientAddress)
 
       const takeReceipt = await take.wait(1)
       console.log('take:', takeReceipt.hash)
@@ -94,13 +89,9 @@ export async function run(): Promise<void> {
       console.log('contractAddress:', contractAddress)
       console.log('pullRequestNumber:', pullRequestNumber)
       console.log('recipientAddress:', recipientAddress)
-      console.log('privateKey:', privateKey)
 
-      const pay = await pattini.pay(
-        issueNumber,
-        parseInt(pullRequestNumber),
-        'commitHashNew'
-      )
+      const pay = await pattini.pay(issueNumber, parseInt(pullRequestNumber))
+
       console.log('pay:', pay.hash)
     }
 
@@ -108,4 +99,6 @@ export async function run(): Promise<void> {
   } catch (error) {
     if (error instanceof Error) core.setFailed(error.message)
   }
+
+  return 'Action completed'
 }
