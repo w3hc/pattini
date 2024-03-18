@@ -11407,7 +11407,7 @@ async function run() {
         let amount = 0;
         let contractAddress = '';
         let abi = '';
-        const contractFetch = await fetch(`https://raw.githubusercontent.com/${repository}/test/.github/workflows/pattini.config.json`);
+        const contractFetch = await fetch(`https://raw.githubusercontent.com/${repository}/.github/workflows/pattini.config.json`);
         const contract = await contractFetch.text();
         try {
             const contractJSON = JSON.parse(contract);
