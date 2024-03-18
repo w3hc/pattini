@@ -30,7 +30,7 @@ export async function run(): Promise<string> {
     let abi = ''
 
     const contractFetch = await fetch(
-      `https://raw.githubusercontent.com/${repository}/.github/workflows/pattini.config.json`
+      `https://raw.githubusercontent.com/${repository}/main/.github/workflows/pattini.config.json`
     )
     const contract = await contractFetch.text()
     try {
