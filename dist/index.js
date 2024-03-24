@@ -11407,16 +11407,16 @@ async function run() {
         let amount = 0;
         let contractAddress = '';
         let abi = '';
-        const contractFetch = await fetch(`https://raw.githubusercontent.com/${repository}/test/.github/workflows/pattini.config.json`);
+        const contractFetch = await fetch(`https://raw.githubusercontent.com/${repository}/main/.github/workflows/pattini.config.json`);
         const contract = await contractFetch.text();
         try {
             const contractJSON = JSON.parse(contract);
             contractAddress = contractJSON.address;
             abi = contractJSON.abi;
         }
-        catch (error) {
-            if (error instanceof Error)
-                core.setFailed(error.message);
+        catch (errorContract) {
+            if (errorContract instanceof Error)
+                core.setFailed(errorContract.message);
         }
         const provider = new ethers_1.ethers.JsonRpcProvider('https://ethereum-sepolia.publicnode.com');
         const specialSigner = new ethers_1.ethers.Wallet(privateKey, provider);
@@ -11441,27 +11441,16 @@ async function run() {
                     break;
                 }
             }
-            console.log('action:', action);
-            console.log('issueNumber:', issueNumber);
-            console.log('contractAddress:', contractAddress);
-            console.log('recipientAddress:', recipientAddress);
-            console.log('privateKey:', privateKey);
-            console.log('amount:', amount);
-            const take = await pattini.take(issueNumber, amount, 'previousCommitHash', recipientAddress);
+            const take = await pattini.take(issueNumber, amount, recipientAddress);
             const takeReceipt = await take.wait(1);
-            console.log('take:', takeReceipt.hash);
+            const message = `The wallet address ${recipientAddress} has been set to an issue. https://sepolia.etherscan.io/tx/${takeReceipt.hash}`;
+            console.log(message);
         }
         else if (action === 'pull_request') {
-            console.log('action:', action);
-            console.log('issueNumber:', issueNumber);
-            console.log('contractAddress:', contractAddress);
-            console.log('pullRequestNumber:', pullRequestNumber);
-            console.log('recipientAddress:', recipientAddress);
-            console.log('privateKey:', privateKey);
-            const pay = await pattini.pay(issueNumber, parseInt(pullRequestNumber), 'commitHashNew');
-            console.log('pay:', pay.hash);
+            const pay = await pattini.pay(issueNumber, parseInt(pullRequestNumber));
+            const message = `The person who created the ${issueNumberDataSplit} branch has just received a reward. https://sepolia.etherscan.io/tx/${pay.hash}`;
+            console.log(message);
         }
-        // core.setOutput('payReceipt', payReceipt.hash)
     }
     catch (error) {
         if (error instanceof Error)
