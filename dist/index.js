@@ -11386,7 +11386,7 @@ const core = __importStar(__nccwpck_require__(2186));
 const ethers_1 = __nccwpck_require__(34);
 /**
  * The main function for the action.
- * @returns {Promise<string>} Resolves when the action is complete.
+ * @returns {Promise<void>} Resolves when the action is complete.
  */
 async function run() {
     try {
@@ -11398,7 +11398,7 @@ async function run() {
         const repository = core.getInput('REPOSITORY');
         const githubToken = core.getInput('GITHUB_TOKEN');
         if (action === 'test') {
-            return 'Test';
+            return;
         }
         const issueNumberDataSplit = issueNumberData.split('-');
         const issueNumber = parseInt(issueNumberDataSplit[0]);
@@ -11415,9 +11415,9 @@ async function run() {
             abi = contractJSON.abi;
         }
         catch (errorContract) {
+            console.log('Error: ', errorContract);
             if (errorContract instanceof Error)
                 core.setFailed(errorContract.message);
-            return 'Error contract';
         }
         const provider = new ethers_1.ethers.JsonRpcProvider('https://ethereum-sepolia.publicnode.com');
         const specialSigner = new ethers_1.ethers.Wallet(privateKey, provider);
@@ -11442,31 +11442,26 @@ async function run() {
                     break;
                 }
             }
-            console.log('action:', action);
-            console.log('issueNumber:', issueNumber);
-            console.log('contractAddress:', contractAddress);
-            console.log('recipientAddress:', recipientAddress);
-            console.log('amount:', amount);
             const take = await pattini.take(issueNumber, amount, recipientAddress);
             const takeReceipt = await take.wait(1);
-            console.log('take:', takeReceipt.hash);
+            console.log('The wallet address ' +
+                recipientAddress +
+                ' has been set to an issue. https://sepolia.etherscan.io/tx/' +
+                takeReceipt.hash);
         }
         else if (action === 'pull_request') {
-            console.log('action:', action);
-            console.log('issueNumber:', issueNumber);
-            console.log('contractAddress:', contractAddress);
-            console.log('pullRequestNumber:', pullRequestNumber);
-            console.log('recipientAddress:', recipientAddress);
             const pay = await pattini.pay(issueNumber, parseInt(pullRequestNumber));
-            console.log('pay:', pay.hash);
+            console.log('The person who created the ' +
+                issueNumberDataSplit +
+                ' branch has just received a reward. https://sepolia.etherscan.io/tx/' +
+                pay.hash);
         }
-        // core.setOutput('payReceipt', payReceipt.hash)
     }
     catch (error) {
+        console.log('Error: ', error);
         if (error instanceof Error)
             core.setFailed(error.message);
     }
-    return 'Action completed';
 }
 exports.run = run;
 

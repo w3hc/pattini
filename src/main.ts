@@ -3,9 +3,9 @@ import { ethers } from 'ethers'
 
 /**
  * The main function for the action.
- * @returns {Promise<string>} Resolves when the action is complete.
+ * @returns {Promise<void>} Resolves when the action is complete.
  */
-export async function run(): Promise<string> {
+export async function run(): Promise<void> {
   try {
     //Get the inputs from the workflow file:
     const issueNumberData: string = core.getInput('ISSUE_NUMBER')
@@ -16,7 +16,7 @@ export async function run(): Promise<string> {
     const githubToken: string = core.getInput('GITHUB_TOKEN')
 
     if (action === 'test') {
-      return 'Test'
+      return
     }
 
     const issueNumberDataSplit = issueNumberData.split('-')
@@ -38,8 +38,8 @@ export async function run(): Promise<string> {
       contractAddress = contractJSON.address
       abi = contractJSON.abi
     } catch (errorContract) {
+      console.log('Error: ', errorContract)
       if (errorContract instanceof Error) core.setFailed(errorContract.message)
-      return 'Error contract'
     }
 
     const provider = new ethers.JsonRpcProvider(
@@ -61,8 +61,8 @@ export async function run(): Promise<string> {
       )
       const issue = await response.json()
       const issueDescription = issue.body
-
       const issueDescriptionSplit = issueDescription.split('\n')
+
       for (let i = 0; i < issueDescriptionSplit.length; i++) {
         const line = issueDescriptionSplit[i]
         const [key, value] = line.split(':').map((item: string) => item.trim())
@@ -73,32 +73,27 @@ export async function run(): Promise<string> {
         }
       }
 
-      console.log('action:', action)
-      console.log('issueNumber:', issueNumber)
-      console.log('contractAddress:', contractAddress)
-      console.log('recipientAddress:', recipientAddress)
-      console.log('amount:', amount)
-
       const take = await pattini.take(issueNumber, amount, recipientAddress)
-
       const takeReceipt = await take.wait(1)
-      console.log('take:', takeReceipt.hash)
-    } else if (action === 'pull_request') {
-      console.log('action:', action)
-      console.log('issueNumber:', issueNumber)
-      console.log('contractAddress:', contractAddress)
-      console.log('pullRequestNumber:', pullRequestNumber)
-      console.log('recipientAddress:', recipientAddress)
 
+      console.log(
+        'The wallet address ' +
+          recipientAddress +
+          ' has been set to an issue. https://sepolia.etherscan.io/tx/' +
+          takeReceipt.hash
+      )
+    } else if (action === 'pull_request') {
       const pay = await pattini.pay(issueNumber, parseInt(pullRequestNumber))
 
-      console.log('pay:', pay.hash)
+      console.log(
+        'The person who created the ' +
+          issueNumberDataSplit +
+          ' branch has just received a reward. https://sepolia.etherscan.io/tx/' +
+          pay.hash
+      )
     }
-
-    // core.setOutput('payReceipt', payReceipt.hash)
   } catch (error) {
+    console.log('Error: ', error)
     if (error instanceof Error) core.setFailed(error.message)
   }
-
-  return 'Action completed'
 }
