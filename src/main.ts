@@ -38,7 +38,6 @@ export async function run(): Promise<void> {
       contractAddress = contractJSON.address
       abi = contractJSON.abi
     } catch (errorContract) {
-      console.log('Error: ', errorContract)
       if (errorContract instanceof Error) core.setFailed(errorContract.message)
     }
 
@@ -93,7 +92,6 @@ export async function run(): Promise<void> {
       )
     }
   } catch (error) {
-    console.log('Error: ', error)
     if (error instanceof Error) core.setFailed(error.message)
   }
 }

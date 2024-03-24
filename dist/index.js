@@ -11415,7 +11415,6 @@ async function run() {
             abi = contractJSON.abi;
         }
         catch (errorContract) {
-            console.log('Error: ', errorContract);
             if (errorContract instanceof Error)
                 core.setFailed(errorContract.message);
         }
@@ -11458,7 +11457,6 @@ async function run() {
         }
     }
     catch (error) {
-        console.log('Error: ', error);
         if (error instanceof Error)
             core.setFailed(error.message);
     }
