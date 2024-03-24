@@ -74,22 +74,20 @@ export async function run(): Promise<void> {
 
       const take = await pattini.take(issueNumber, amount, recipientAddress)
       const takeReceipt = await take.wait(1)
-
-      console.log(
+      const message =
         'The wallet address ' +
-          recipientAddress +
-          ' has been set to an issue. https://sepolia.etherscan.io/tx/' +
-          takeReceipt.hash
-      )
+        recipientAddress +
+        ' has been set to an issue. https://sepolia.etherscan.io/tx/' +
+        takeReceipt.hash
+      console.log(message)
     } else if (action === 'pull_request') {
       const pay = await pattini.pay(issueNumber, parseInt(pullRequestNumber))
-
-      console.log(
+      const message =
         'The person who created the ' +
-          issueNumberDataSplit +
-          ' branch has just received a reward. https://sepolia.etherscan.io/tx/' +
-          pay.hash
-      )
+        issueNumberDataSplit +
+        ' branch has just received a reward. https://sepolia.etherscan.io/tx/' +
+        pay.hash
+      console.log(message)
     }
   } catch (error) {
     if (error instanceof Error) core.setFailed(error.message)

@@ -11443,17 +11443,19 @@ async function run() {
             }
             const take = await pattini.take(issueNumber, amount, recipientAddress);
             const takeReceipt = await take.wait(1);
-            console.log('The wallet address ' +
+            const message = 'The wallet address ' +
                 recipientAddress +
                 ' has been set to an issue. https://sepolia.etherscan.io/tx/' +
-                takeReceipt.hash);
+                takeReceipt.hash;
+            console.log(message);
         }
         else if (action === 'pull_request') {
             const pay = await pattini.pay(issueNumber, parseInt(pullRequestNumber));
-            console.log('The person who created the ' +
+            const message = 'The person who created the ' +
                 issueNumberDataSplit +
                 ' branch has just received a reward. https://sepolia.etherscan.io/tx/' +
-                pay.hash);
+                pay.hash;
+            console.log(message);
         }
     }
     catch (error) {
