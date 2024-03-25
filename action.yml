@@ -3,7 +3,8 @@ description: 'Rewards an external contributor'
 author: 'W3HC'
 
 branding:
-  icon: 'pattini-logo.png'
+  icon: globe
+  color: purple
 
 inputs:
   PRIVATE_KEY:
