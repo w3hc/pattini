@@ -3,8 +3,7 @@ description: 'Rewards an external contributor'
 author: 'W3HC'
 
 branding:
-  icon: 'arrow-right-circle'
-  color: 'blue'
+  icon: 'https://bafkreid47g4uxs5msarp3v5hvf7ssdqi3la5kylmwseirva7wzkyc5bgvi.ipfs.w3s.link/'
 
 inputs:
   PRIVATE_KEY:
