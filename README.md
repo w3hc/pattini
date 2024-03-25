@@ -2,6 +2,8 @@
 
 Pattini is a GitHub Action designed to incentivize and reward contributors of a GitHub project. When an issue is merged by a maintainer, the pull request author automatically receives a certain amount of ERC-20 (USDC, DAI, ...).
 
+Watch video: https://youtu.be/NbGHN4nkXLY
+
 ## Install
 
 ```
@@ -20,47 +22,26 @@ npm test
 npm run bundle
 ```
 
-## Use
+## Use as a contributor
 
-The directory owner creates an issue. At the end of the description, he adds the amount
-of the reward that the contributor will receive if the branch he has created is merged.
-
-Example of an issue description:
+When you create a branch from the issue, add your wallet address at the end of the name of the branch with a hyphen (-).
 
 ```
-We need to add a /blog page where we could post some news.
-
-Tasks:
-
-1. Design and Layout:
-  - Determine the layout and design of the Blog page.
-  - Consider integrating it seamlessly with the existing website design.
-2. Functionality:
-  - Implement a backend system for managing blog posts.
-  - Ensure proper routing/navigation to the Blog page.
-
-Amount : 15 OP
+-0x8CCbFaAe6BC02a73BBe8d6d8017cC8313E4C90A7
 ```
 
-_Mandatory format:_
-
-```
-
-DESCRIPTION...
-
-Amount : AMOUNT OP
-```
-
-When the contributor creates a branch from the issue, the name of the branch:
-
-- **MUST** begin with the number of the corresponding issue 
-- **MUST** end with the contributor's wallet address
-
-### Example
+Your branch name should look like this example: 
 
 ```
 15-Add-blog-page-to-website-0x8CCbFaAe6BC02a73BBe8d6d8017cC8313E4C90A7
 ```
+
+The payment will be triggered when the branch is merged to main. 
+
+Watch video: https://youtu.be/NbGHN4nkXLY
+
+View a example directory that's using Pattini:
+[Fables de La Fontaine](https://github.com/w3hc/fables-de-lafontaine)
 
 _Mandatory format:_
 
@@ -68,14 +49,13 @@ _Mandatory format:_
 <ISSUE_NUMBER>-<ISSUE_NAME>-<CONTRIBUTOR_WALLET_ADDRESS>
 ```
 
-When the branch is created, the address at the end is stored on-chain so that the account receiving the reward cannot change.
+## Use Pattini as a repository maintainer
 
-Only one person will be paid per issue (the first merge for that issue).
+The repository maintainer should make sure that at least 1 review is required to allow merging.
 
-Sample directory using Pattini:
-[Fables de La Fontaine](https://github.com/w3hc/fables-de-lafontaine)
+Before merging, he should also verify if another no one else made a pull request before. 
 
-## Add Pattini to your project
+### Config
 
 To get Pattini up and running in your repository:
 
