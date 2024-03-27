@@ -41,9 +41,7 @@ export async function run(): Promise<void> {
       if (errorContract instanceof Error) core.setFailed(errorContract.message)
     }
 
-    const provider = new ethers.JsonRpcProvider(
-      'https://optimism-sepolia-rpc.publicnode.com/'
-    )
+    const provider = new ethers.JsonRpcProvider('https://sepolia.optimism.io')
     const specialSigner = new ethers.Wallet(privateKey, provider)
     const pattini = new ethers.Contract(contractAddress, abi, specialSigner)
 
@@ -74,11 +72,12 @@ export async function run(): Promise<void> {
 
       const take = await pattini.take(issueNumber, amount, recipientAddress)
       const takeReceipt = await take.wait(1)
-      const message = `The wallet address ${recipientAddress} has been set to an issue. https://sepolia.etherscan.io/tx/${takeReceipt.hash}`
+      const message = `The wallet address ${recipientAddress} has been set to an issue. https://sepolia-optimism.etherscan.io/address/${takeReceipt.hash}`
       console.log(message)
     } else if (action === 'pull_request') {
       const pay = await pattini.pay(issueNumber, parseInt(pullRequestNumber))
-      const message = `The person who created the ${issueNumberDataSplit} branch has just received a reward. https://sepolia.etherscan.io/tx/${pay.hash}`
+      const payReceipt = await pay.wait(1)
+      const message = `The person who created the ${issueNumberDataSplit} branch has just received a reward. https://sepolia-optimism.etherscan.io/address/${payReceipt.hash}`
       console.log(message)
     }
   } catch (error) {
