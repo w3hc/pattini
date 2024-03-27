@@ -11418,7 +11418,7 @@ async function run() {
             if (errorContract instanceof Error)
                 core.setFailed(errorContract.message);
         }
-        const provider = new ethers_1.ethers.JsonRpcProvider('https://ethereum-sepolia.publicnode.com');
+        const provider = new ethers_1.ethers.JsonRpcProvider('https://optimism-sepolia-rpc.publicnode.com/');
         const specialSigner = new ethers_1.ethers.Wallet(privateKey, provider);
         const pattini = new ethers_1.ethers.Contract(contractAddress, abi, specialSigner);
         //Beginning of the action on chain:

@@ -42,7 +42,7 @@ export async function run(): Promise<void> {
     }
 
     const provider = new ethers.JsonRpcProvider(
-      'https://ethereum-sepolia.publicnode.com'
+      'https://optimism-sepolia-rpc.publicnode.com/'
     )
     const specialSigner = new ethers.Wallet(privateKey, provider)
     const pattini = new ethers.Contract(contractAddress, abi, specialSigner)
