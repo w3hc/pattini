@@ -72,12 +72,12 @@ export async function run(): Promise<void> {
 
       const take = await pattini.take(issueNumber, amount, recipientAddress)
       const takeReceipt = await take.wait(1)
-      const message = `The wallet address ${recipientAddress} has been set to an issue. https://sepolia-optimism.etherscan.io/address/${takeReceipt.hash}`
+      const message = `The wallet address ${recipientAddress} has been set to an issue. https://sepolia-optimism.etherscan.io/tx/${takeReceipt.hash}`
       console.log(message)
     } else if (action === 'pull_request') {
       const pay = await pattini.pay(issueNumber, parseInt(pullRequestNumber))
       const payReceipt = await pay.wait(1)
-      const message = `The person who created the ${issueNumberDataSplit} branch has just received a reward. https://sepolia-optimism.etherscan.io/address/${payReceipt.hash}`
+      const message = `The person who created the ${issueNumberDataSplit} branch has just received a reward. https://sepolia-optimism.etherscan.io/tx/${payReceipt.hash}`
       console.log(message)
     }
   } catch (error) {
